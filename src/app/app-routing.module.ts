@@ -5,8 +5,7 @@ import { ImageCropperSampleComponent } from './pages/image-cropper-sample/image-
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: '/image-cropper-sample'
+    component: ImageCropperSampleComponent,
   },
   {
     path: 'image-cropper-sample',
