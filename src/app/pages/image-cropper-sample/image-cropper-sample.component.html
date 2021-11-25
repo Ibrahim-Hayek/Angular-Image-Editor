@@ -1,0 +1,174 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+      <div class="container-fluid no-padding">
+        <div class="card-item" *ngIf="usingUpload">
+          <h5>Upload your File :</h5>
+          <div class="drag-area">
+            <span class="header">Drag & Drop</span>
+            <span class="header">or <span class="button">browse</span></span>
+            <input type="file" id="imageUploader" (change)="fileChangeEvent($event)" />
+            <span class="support">Supports: PNG | JPG | JPEG | BMP | GIF | TIFF | WEBP</span>
+          </div>
+        </div>
+
+        <div class="card-item" *ngIf="srcChanged">
+          <h5>Image preview :</h5>
+          <div class="downloadResult">
+            <button (click)="download()" class="download" *ngIf="srcChanged">
+              download
+            </button>
+            <button (click)="exportToPdf()" *ngIf="srcChanged" class="extractPdf">
+              Export PDF
+            </button>
+            <button (click)="saveImage()" class="save" *ngIf="srcChanged">
+              Save
+            </button>
+          </div>
+          <div class="final-view" *ngIf="srcChanged">
+            <img id="imageResult" [src]="croppedImage" [style.filter]="filterStyles" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12" [class.hidden]="!srcChanged">
+      <div class="cropper-holder">
+        <div class="card-item paddingNull">
+          <div class="actions">
+            <div class="action-item" *ngFor="let action of actions, let index = index"
+              [class.active]="index+1 === selectedActionIndex">
+              <button (click)="selectedActionIndex=index+1">
+                <!-- <img [src]="action.src" [alt]="action.alt"> -->
+                <label>{{action.label}}</label>
+              </button>
+            </div>
+          </div>
+          <div class="action-options">
+            <div class="options-list add-padding" *ngIf="selectedActionIndex===0">
+              <label>Select any action tab to view options</label>
+            </div>
+            <div class="options-list add-padding" *ngIf="selectedActionIndex===1">
+              <button class="option-item" *ngFor="let ratio of ratios" (click)="setRatio(ratio.value)">
+                {{ratio.label}}
+              </button>
+              <button class="option-item" (click)="setRatio('free')">
+                Free crop
+              </button>
+              <button class="reset-image" (click)="resetImage()">Reset image</button>
+            </div>
+            <div class="options-list add-padding" *ngIf="selectedActionIndex===2">
+              <button class="option-item" (click)="zoomOut()">
+                Zoom -
+              </button>
+              <button class="option-item" (click)="zoomIn()">
+                Zoom +
+              </button>
+              <button class="reset-image" (click)="resetImage()">Reset image</button>
+            </div>
+            <div class="options-list add-padding" *ngIf="selectedActionIndex===3">
+              <button class="option-item" (click)="rotateLeft()">
+                Rotate left
+              </button>
+              <button class="option-item" (click)="rotateRight()">
+                Rotate right
+              </button>
+              <div class="option-item">
+                <input [(ngModel)]="rotation" placeholder="Input Rotation Degree" type="number"
+                  (keyup)="updateRotation()" />
+              </div>
+              <button class="reset-image" (click)="resetImage()">Reset image</button>
+            </div>
+            <div class="options-list add-padding" *ngIf="selectedActionIndex===4">
+              <button class="option-item" (click)="flipHorizontal()">
+                Flip horizontal
+              </button>
+              <button class="option-item" (click)="flipVertical()">
+                Flip vertical
+              </button>
+              <button class="reset-image" (click)="resetImage()">Reset image</button>
+            </div>
+
+            <div class="options-list" *ngIf="selectedActionIndex===5">
+              <div class="adjust-item">
+                <label>Brightness</label>
+                <ngx-slider [(value)]="brightness" [options]="brightnessOptions"
+                  (userChange)="adjustBrightness($event)">
+                </ngx-slider>
+              </div>
+              <div class="adjust-item">
+                <label>Contrast</label>
+                <ngx-slider [(value)]="contrast" [options]="contrastOptions" (userChange)="adjustContrast($event)">
+                </ngx-slider>
+              </div>
+              <div class="adjust-item">
+                <label>Blur</label>
+                <ngx-slider [(value)]="blur" [options]="blurOptions" (userChange)="adjustBlur($event)">
+                </ngx-slider>
+              </div>
+              <div class="adjust-item">
+                <label>Hue-rotate</label>
+                <ngx-slider [(value)]="hueRotate" [options]="hueOptions" (userChange)="adjustHue($event)">
+                </ngx-slider>
+              </div>
+              <div class="adjust-item">
+                <label>Invert</label>
+                <ngx-slider [(value)]="invert" [options]="invertOptions" (userChange)="adjustInvert($event)">
+                </ngx-slider>
+              </div>
+              <div class="adjust-item">
+                <label>Saturate</label>
+                <ngx-slider [(value)]="saturate" [options]="saturateOptions" (userChange)="adjustSaturate($event)">
+                </ngx-slider>
+              </div>
+              <div class="adjust-item">
+                <label>Sepia</label>
+                <ngx-slider [(value)]="sepia" [options]="sepiaOptions" (userChange)="adjustSepia($event)">
+                </ngx-slider>
+              </div>
+              <div class="adjust-item">
+                <label>Grayscale</label>
+                <ngx-slider [(value)]="grayscale" [options]="grayscaleOptions" (userChange)="adjustGrayscale($event)">
+                </ngx-slider>
+              </div>
+              <button class="reset-image" (click)="resetImage()">Reset image</button>
+            </div>
+            <div class="options-list add-padding30" *ngIf="selectedActionIndex===6">
+              <div class=" shadow-item">
+                <label>Vertical Offset</label>
+                <input [(ngModel)]="ShadowX" placeholder="Input vertical offset" type="number" (input)="getfilters()" />
+              </div>
+              <div class=" shadow-item">
+                <label>Horizontal Offset</label>
+                <input [(ngModel)]="ShadowY" placeholder="Input horizontal offset" type="number"
+                  (input)="getfilters()" />
+              </div>
+              <div class=" shadow-item">
+                <label>Blur raduis</label>
+                <input [(ngModel)]="ShadowBlur" placeholder="Input blur raduis" type="number" (input)="getfilters()"
+                  min="0" />
+              </div>
+              <div class=" shadow-item">
+                <label>Blur color</label>
+                <input [(colorPicker)]="ShadowColor" [style.background]="ShadowColor" (colorPickerChange)="getfilters()"
+                  readonly class="cursorPointer" />
+              </div>
+              <button class="reset-image" (click)="resetImage()">Reset image</button>
+            </div>
+          </div>
+        </div>
+        <div class="image-viewer">
+          <div class="main-holder">
+            <app-image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="maintainAspectRatio"
+              [containWithinAspectRatio]="containWithinAspectRatio" [aspectRatio]="aspectRatio" [resizeToWidth]="0"
+              [cropperMinWidth]="128" [onlyScaleDown]="true" [roundCropper]="false" [canvasRotation]="canvasRotation"
+              [transform]="transform" [alignImage]="'center'" [style.display]="showCropper ? null : 'none'" format="png"
+              (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady($event)"
+              (loadImageFailed)="loadImageFailed()" [imageBase64]="imageBase64" [imageURL]="imageURL">
+            </app-image-cropper>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<canvas class="canvasImage" id="image"></canvas>

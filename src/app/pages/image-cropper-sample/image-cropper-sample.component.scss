@@ -1,0 +1,312 @@
+.action-item {
+  width: calc(100% / 6);
+  display: inline-block;
+
+  button {
+    border: 0;
+    background-color: transparent;
+    width: 100%;
+    padding: 12px 10px;
+    border-right: 1px solid #dbdbdb;
+  }
+
+  label {
+    display: block;
+    color: #00812f;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  img {
+    width: 22px;
+  }
+}
+
+.cropper-holder {
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+.actions {
+  background: rgb(214 255 229 / 80%);
+}
+
+.action-item:last-child button {
+  border: 0 !important;
+}
+
+.action-item:not(.active) img {
+  filter: grayscale(100%);
+}
+
+.action-item:not(.active) label {
+  color: #afafaf !important;
+}
+
+.action-item.active button {
+  background-color: rgb(179 255 207) !important;
+}
+
+.action-item:hover button {
+  background-color: rgb(179 255 207) !important;
+}
+
+.final-view {
+  width: 100%;
+  text-align: center;
+  padding-top: 20px;
+  margin-bottom: 20px;
+
+  img {
+    max-width: 100%;
+  }
+}
+
+.action-options {
+  background-color: #f5f6f7;
+  text-align: right;
+  border-top: 1px solid #dbdbdb;
+}
+
+.option-item {
+  width: fit-content;
+  display: inline-block;
+  background-color: #f1dd90;
+  margin: 0 10px;
+  padding: 6px 18px;
+  border: 1px solid #d7b11f;
+  border-radius: 30px;
+  cursor: pointer;
+  min-width: 70px
+}
+
+.options-list {
+  padding: 14px 8px;
+  text-align: center;
+  min-height: 90px;
+
+  label {
+    color: #7c7c7c;
+  }
+}
+
+.option-item:hover {
+  background-color: #dfbc38;
+}
+
+.option-item input {
+  background: #f1dd90;
+  border: 0;
+  height: 24px;
+}
+
+.reset-image {
+  background: #ff5554;
+  border-radius: 30px;
+  border: 1px solid #811e2f;
+  color: white;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  float: right;
+  height: 38px
+}
+
+
+.drag-area {
+  height: 100%;
+  border: 3px dashed #e0eafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 10px auto;
+  position: relative;
+
+  &.active {
+    border: 2px solid #1683ff;
+  }
+
+  .header {
+    font-size: 18px;
+    font-weight: 500;
+    color: #34495e;
+  }
+
+  .support {
+    font-size: 12px;
+    color: gray;
+    margin: 4px 0 15px 0;
+    margin-bottom: 4px;
+  }
+
+  .button {
+    font-size: 18px;
+    font-weight: 500;
+    color: #1683ff;
+    cursor: pointer;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  input {
+    display: inline-block;
+    width: 100%;
+    padding: 120px 0 0 0;
+    overflow: hidden;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border-radius: 20px;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    cursor: pointer;
+  }
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.adjust-item {
+  width: calc((100% / 8) - 21px);
+  display: inline-block;
+  margin: 0 4px;
+  border: 1px solid #b6b8bb;
+
+  label {
+    width: 100%;
+    background: #e7e7e7;
+    font-size: 14px;
+  }
+
+  ::ng-deep .ngx-slider.animate .ngx-slider-pointer {
+    width: 20px;
+    height: 20px;
+    top: -8px;
+  }
+
+  ::ng-deep .ngx-slider .ngx-slider-pointer:after {
+    top: 6px;
+    left: 6px;
+  }
+}
+
+::ng-deep .ngx-slider .ngx-slider-pointer {
+  width: 20px !important;
+  height: 20px !important;
+  top: -8px !important;
+}
+
+.adjust-item+button.reset-image {
+  margin-top: 14px;
+}
+
+::ng-deep .ngx-slider-bubble {
+  font-size: 12px !important;
+
+  &.ngx-slider-model-value {
+    color: #b98500;
+  }
+}
+
+.shadow-item {
+  width: calc((100% / 4) - 80px);
+  display: inline-block;
+  cursor: pointer;
+  min-width: 70px;
+  margin: 0 20px;
+  border: 1px solid #b6b8bb;
+
+  input {
+    width: 100%;
+    border: 0;
+    padding: 3px 6px;
+    text-align: center;
+    background-color: #f5f6f7;
+  }
+
+  label {
+    width: 100%;
+    background: #e7e7e7;
+  }
+}
+
+.add-padding {
+  padding-top: 28px
+}
+
+.add-padding30 {
+  padding-top: 18px
+}
+
+.downloadResult {
+
+  button {
+    border: 1px solid #d9d9d9;
+    background-color: #fdfdfd;
+    padding: 6px 10px;
+    margin: 10px 6px 0;
+    color: white;
+
+    &.download {
+      background-color: #007be3;
+    }
+
+    &.extractPdf {
+      background-color: #b30b00;
+    }
+
+    &.save {
+      background-color: #41b91a;
+    }
+
+    img {
+      width: 25px;
+      margin-top: -4px;
+    }
+
+    &:hover {
+      opacity: 0.5;
+    }
+
+  }
+}
+
+.card-item {
+  box-shadow: 0 2px 1px -1px #0003, 0 1px 1px #00000024, 0 1px 3px #0000001f;
+  margin-top: 24px;
+  padding: 7px 10px 6px;
+  margin-bottom: 15px;
+  background-color: white;
+}
+
+::ng-deep ngx-slider.ngx-slider {
+  margin: 34px 0 -2px;
+}
+
+.shadow-item+.reset-image {
+  margin-top: 10px;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.paddingNull {
+  padding: 0;
+}
+
+.cursorPointer {
+  cursor: pointer;
+}
+
+.canvasImage {
+  display: none;
+}
